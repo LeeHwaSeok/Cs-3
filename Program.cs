@@ -4,9 +4,9 @@ namespace Cs_3
 {
     class Program
     {
-        class Dog  //생성된 클래스
+        class Dog  // 1번 클래스 사용 
         {
-            private int eyes, nose, mouse, ears;             //클래스에서 사용할 변수 선언
+            protected int eyes, nose, mouse, ears;             //클래스에서 사용할 변수 선언
             public void bark()                                  //1. 클래스 매개변수 호출해보기
             {
                 Console.WriteLine("멍멍");
@@ -64,9 +64,35 @@ namespace Cs_3
             }
 
         }
+        class buldok : Dog{  //2번 상속
+            private string kind;        
+            public buldok(){            // dog() private -> public or protected / priavet 상태에서는 상속이 불가 
+                                        // public = 어디서든 접근이 가능.
+                                        // protected = 상속관계일 때 접근이 가능
+                                        // private = 해당 클래스에서만 접근이 가능
+                base.eyes = 0;
+                base.nose = 0;
+                base.mouse = 0;
+                base.ears = 0;
+                this.kind = "불독";
+            }
+            public void buldogshow(){
+                Console.WriteLine("{0}, {1}, {2}, {3} {4}", eyes, nose, mouse, ears,kind);  //str이 아니라 변수의 경우 각각 자리를 포매팅 해줘야함.
+            }
+            public void buldogbark(){
+                Console.WriteLine("으르롱");
+            }
+            public string getkind(){
+                return this.kind;
+            }
+            public void setkind(string kind){
+                this.kind = kind;
+            }
+
+        }
         static void Main(string[] args) //메인
         {
-
+            //1번 클래스 이용해보기
             Dog dog = new Dog();        //인스턴스화를 통한 메모리할당, 메모리할당은 2가지 방법 [static / instance( = new 함수)]
             dog.bark();                 //함수 호출
             dog.show();                 //클래스 변수 출력
@@ -78,6 +104,15 @@ namespace Cs_3
             Console.WriteLine(dog.getears());   //0
             dog.setears(5);                     // ears변수 직접수정 = 5
             Console.WriteLine(dog.getears());   //5
+
+            //2번 상속
+            buldok bul = new buldok();
+            bul.buldogshow();
+            bul.bark();
+            bul.buldogbark();
+            bul.setkind("주민우");
+            bul.buldogshow();
+
         }
     }
 }
